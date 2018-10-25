@@ -1,0 +1,26 @@
+<h1>Completa tus tareas del 18</h1>
+
+<% @tasks.each_slice(4) do |row| %>
+<% row.each do |task| %>
+<div class="row">
+  <div class="col-md-4">
+    <div class="card mb-4 shadow-sm">
+      <%= image_tag image_url(task.photo) %>
+      <div class="card-body">
+        <h5 class="card-title"><%= task.title %></h5>
+        <div class="btn-group">
+          <% if checking(task).nil? %>
+            <%= link_to 'No listo',  task_completed_tasks_path(task), method: :POST, class: 'btn btn-danger' %>
+            <%= link_to 'Ver listado',  task_completed_task_path(task, current_user), class: 'btn btn-warning' %>
+          <% else %>
+            <%= link_to 'Listo',  task_completed_task_path(task, current_user), method: :DELETE, class: 'btn btn-success' %>
+            <%= link_to 'Ver listado',  task_completed_task_path(task, current_user), class: 'btn btn-warning' %>
+          <% end %>
+        </div>
+        <small class="text-muted"><%= task.created_at %></small>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+<% end %>

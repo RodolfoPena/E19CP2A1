@@ -1,0 +1,43 @@
+<h1> <%= @completed_task.title %> </h1>
+<h5> Usuarios haciendo esta tarea </h5>
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Email</th>
+      <th scope="col">¿Cuando la hizo?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @completed_task.users.each do |user| %>
+      <tr>
+        <td>
+          <%= image_tag user.photo, class:'avatar' %>
+          <%= user.email %></td>
+        <td><%= user.completed_tasks.find_by(task_id: @completed_task).created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h5> Ranking de los primeros 5 usuarios </h5>
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Ranking</th>
+      <th scope="col">Email</th>
+      <th scope="col">¿Cuando la hizo?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% k = 0 %>
+    <% @completed_tasks_ranked.each do |completed_task| %>
+      <tr>
+        <td><%= k = k + 1%></td>
+        <td>
+          <%= image_tag completed_task.user.photo, class:'avatar' %>
+          <%= completed_task.user.email %></td>
+        <td><%= completed_task.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
